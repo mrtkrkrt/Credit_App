@@ -21,7 +21,7 @@ public class Installment extends BaseEntity {
     private Long id;
     private BigDecimal amount;
     private InstallmentStatus status;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "loan_id")
     private Loan loan;
 

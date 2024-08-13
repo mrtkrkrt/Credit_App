@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "loan")
@@ -22,8 +23,15 @@ public class Loan extends BaseEntity {
     private Long id;
     private LoanStatus status;
     private BigDecimal amount;
+    private BigDecimal interestRate;
+    private int installmentCount;
+    @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Installment> installments;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    public void addInstallment(Installment installment) {
+        installments.add(installment);
+    }
 }
