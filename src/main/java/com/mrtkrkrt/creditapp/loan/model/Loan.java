@@ -1,14 +1,12 @@
 package com.mrtkrkrt.creditapp.loan.model;
 
+import com.mrtkrkrt.creditapp.common.model.BaseEntity;
 import com.mrtkrkrt.creditapp.loan.model.enums.LoanStatus;
 import com.mrtkrkrt.creditapp.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "loan")
@@ -17,7 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Loan {
+public class Loan extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +25,5 @@ public class Loan {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @CreationTimestamp
-    private LocalDateTime createdAt;
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
 
 }

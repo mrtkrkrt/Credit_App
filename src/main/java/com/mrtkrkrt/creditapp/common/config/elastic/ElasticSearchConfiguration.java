@@ -1,4 +1,4 @@
-package com.mrtkrkrt.creditapp.config.elastic;
+package com.mrtkrkrt.creditapp.common.config.elastic;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -10,16 +10,14 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @EnableElasticsearchRepositories(basePackages = "*")
 public class ElasticSearchConfiguration extends ElasticsearchConfiguration {
 
-    @Value("${elasticsearch.host}")
-    private String elasticsearchHost;
-
-    @Value("${elasticsearch.port}")
-    private int elasticsearchPort;
+    @Value("${elasticsearch.url}")
+    private String elasticsearchUrl;
 
     @Override
     public ClientConfiguration clientConfiguration() {
         return ClientConfiguration.builder()
-                .connectedTo(elasticsearchHost + ":" + elasticsearchPort)
+                .connectedTo(elasticsearchUrl)
                 .build();
     }
 }
+

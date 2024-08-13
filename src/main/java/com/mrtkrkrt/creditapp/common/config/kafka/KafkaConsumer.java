@@ -1,4 +1,4 @@
-package com.mrtkrkrt.creditapp.config.kafka;
+package com.mrtkrkrt.creditapp.common.config.kafka;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
