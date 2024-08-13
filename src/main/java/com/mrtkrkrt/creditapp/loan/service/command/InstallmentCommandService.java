@@ -33,6 +33,6 @@ public class InstallmentCommandService {
     }
 
     private BigDecimal calculateInstallmentAmount(InitializeInstallmentCommand initializeInstallmentCommand) {
-        return initializeInstallmentCommand.getAmount().divide(BigDecimal.valueOf(initializeInstallmentCommand.getInstallmentCount())).multiply(BigDecimal.ONE.add(initializeInstallmentCommand.getInterestRate()));
+        return initializeInstallmentCommand.getAmount().divide(BigDecimal.valueOf(initializeInstallmentCommand.getInstallmentCount()));
     }
 }
