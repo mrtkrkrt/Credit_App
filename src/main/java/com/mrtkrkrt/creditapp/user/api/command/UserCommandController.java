@@ -1,7 +1,5 @@
 package com.mrtkrkrt.creditapp.user.api.command;
 
-import com.mrtkrkrt.creditapp.common.exception.ErrorCode;
-import com.mrtkrkrt.creditapp.common.exception.GenericException;
 import com.mrtkrkrt.creditapp.user.dto.command.CreateUserCommand;
 import com.mrtkrkrt.creditapp.user.service.command.UserCommandService;
 import jakarta.validation.Valid;
@@ -25,13 +23,6 @@ public class UserCommandController {
     @PostMapping("/register")
     public ResponseEntity<Void> createUser(@RequestBody @Valid CreateUserCommand createUserCommand) {
         log.info("UserCommandController -> createUser is started, createUserCommand: {}", createUserCommand);
-        if (userCommandService.isUserExists(createUserCommand.getTckn())) {
-            throw GenericException.builder()
-                    .httpStatus(HttpStatus.NOT_FOUND)
-                    .logMessage(this.getClass().getName() + ".createUser() user already exists with tckn: {}", createUserCommand.getTckn())
-                    .message(ErrorCode.USER_ALREADY_EXISTS)
-                    .build();
-        }
         userCommandService.createUser(createUserCommand.toItem());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

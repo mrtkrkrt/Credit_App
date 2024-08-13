@@ -20,7 +20,7 @@ public class UserQueryController {
 
     @GetMapping("/")
     public ResponseEntity<RetrieveUserResponse> getUser(@RequestHeader(value = "x-user-tckn") String tckn) {
-        RetrieveUserResponse response = userQueryService.getUser(tckn);
+        RetrieveUserResponse response = userQueryService.getUserByTckn(tckn);
         return ResponseEntity.ok(response);
     }
 }
