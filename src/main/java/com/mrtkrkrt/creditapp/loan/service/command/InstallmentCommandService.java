@@ -1,14 +1,19 @@
 package com.mrtkrkrt.creditapp.loan.service.command;
 
+import com.mrtkrkrt.creditapp.common.exception.ErrorCode;
+import com.mrtkrkrt.creditapp.common.exception.GenericException;
 import com.mrtkrkrt.creditapp.loan.dto.command.InitializeInstallmentCommand;
+import com.mrtkrkrt.creditapp.loan.dto.command.TakeOutInstallmentServiceCommand;
 import com.mrtkrkrt.creditapp.loan.dto.query.InitializeInstallmentResponse;
 import com.mrtkrkrt.creditapp.loan.model.Installment;
 import com.mrtkrkrt.creditapp.loan.model.InstallmentElastic;
 import com.mrtkrkrt.creditapp.loan.model.enums.InstallmentStatus;
+import com.mrtkrkrt.creditapp.loan.repository.InstallmentRepository;
 import com.mrtkrkrt.creditapp.loan.service.kafka.publisher.InstallmentEventPublisher;
 import com.mrtkrkrt.creditapp.user.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -21,6 +26,7 @@ import java.util.List;
 public class InstallmentCommandService {
 
     private final InstallmentEventPublisher installmentEventPublisher;
+    private final InstallmentRepository installmentRepository;
 
     public InitializeInstallmentResponse createInstallments(InitializeInstallmentCommand initializeInstallmentCommand) {
         log.info("InstallmentCommandService -> createInstallments is started, initializeInstallmentCommand: {}", initializeInstallmentCommand);
@@ -55,6 +61,49 @@ public class InstallmentCommandService {
             } catch (Exception e) {
                 log.error("InstallmentCommandService -> syncElasticInstallments is failed, installment: {}", installments.get(i), e);
             }
+        }
+    }
+
+    public void takeOutInstallment(TakeOutInstallmentServiceCommand takeOutInstallmentServiceCommand) {
+        log.info("InstallmentCommandService -> takeOutInstallment is started, takeOutInstallmentServiceCommand: {}", takeOutInstallmentServiceCommand);
+        checkLoanHasUnPaidInstallment(takeOutInstallmentServiceCommand.getLoanId());
+        checkAmountIsEnoughForInstallment(takeOutInstallmentServiceCommand.getAmount(), takeOutInstallmentServiceCommand.getLoanId());
+        updateInstallmentStatus(takeOutInstallmentServiceCommand.getLoanId());
+    }
+
+    private void updateInstallmentStatus(Long loanId) {
+        log.info("InstallmentCommandService -> updateInstallmentStatus is started, loanId: {}", loanId);
+        Installment installment = installmentRepository.findByLoanIdAndStatus(loanId, InstallmentStatus.UNPAID).stream().findFirst().get();
+        installment.setStatus(InstallmentStatus.PAID);
+        installmentRepository.save(installment);
+        installmentEventPublisher.publish("installment-elastic-sync", InstallmentElastic.builder()
+                .id(installment.getId())
+                .amount(installment.getAmount())
+                .status(installment.getStatus())
+                .loanId(loanId)
+                .build());
+        installmentEventPublisher.publish("loan-installment-paid", installment.getLoan().getId());
+    }
+
+    private void checkAmountIsEnoughForInstallment(BigDecimal amount, Long loanId) {
+        log.info("InstallmentCommandService -> checkAmountIsEnoughForInstallment is started, amount: {}, loanId: {}", amount, loanId);
+        if (installmentRepository.findByLoanIdAndStatus(loanId, InstallmentStatus.UNPAID).stream().findFirst().get().getAmount().compareTo(amount) != 0) {
+            throw GenericException.builder()
+                    .httpStatus(HttpStatus.BAD_REQUEST)
+                    .logMessage(this.getClass().getName() + " -> checkAmountIsEnoughForInstallment -> Amount is not enough for installment")
+                    .message(ErrorCode.AMOUNT_IS_NOT_ENOUGH_FOR_INSTALLMENT)
+                    .build();
+        }
+    }
+
+    private void checkLoanHasUnPaidInstallment(Long loanId) {
+        log.info("InstallmentCommandService -> checkLoanHasUnPaidInstallment is started, loanId: {}", loanId);
+        if (installmentRepository.findByLoanIdAndStatus(loanId, InstallmentStatus.UNPAID).isEmpty()) {
+            throw GenericException.builder()
+                    .httpStatus(HttpStatus.NOT_FOUND)
+                    .logMessage(this.getClass().getName() + " -> checkLoanHasUnPaidInstallment -> Loan has no unpaid installment")
+                    .message(ErrorCode.LOAN_HAS_NO_UNPAID_INSTALLMENT)
+                    .build();
         }
     }
 }
