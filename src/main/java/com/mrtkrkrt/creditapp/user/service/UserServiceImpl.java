@@ -3,6 +3,7 @@ package com.mrtkrkrt.creditapp.user.service;
 import com.mrtkrkrt.creditapp.loan.model.Loan;
 import com.mrtkrkrt.creditapp.user.UserService;
 import com.mrtkrkrt.creditapp.user.dto.query.RetrieveUserResponse;
+import com.mrtkrkrt.creditapp.user.model.User;
 import com.mrtkrkrt.creditapp.user.model.UserElastic;
 import com.mrtkrkrt.creditapp.user.service.command.UserCommandService;
 import com.mrtkrkrt.creditapp.user.service.query.UserQueryService;
@@ -26,8 +27,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addLoan(String tckn, Loan loan) {
+    public User addLoan(String tckn, Loan loan) {
         log.info("UserServiceImpl -> addLoan is started, tckn: {}", tckn);
-        userCommandService.addLoan(tckn, loan);
+        return userCommandService.addLoan(tckn, loan);
     }
 }

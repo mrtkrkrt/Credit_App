@@ -52,9 +52,9 @@ public class UserCommandService {
         return user.get();
     }
 
-    public void addLoan(String tckn, Loan loan) {
+    public User addLoan(String tckn, Loan loan) {
         User user = findUserByTckn(tckn);
         user.addLoan(loan);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 }

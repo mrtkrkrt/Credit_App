@@ -4,9 +4,11 @@ import com.mrtkrkrt.creditapp.loan.dto.command.InitializeInstallmentCommand;
 import com.mrtkrkrt.creditapp.loan.dto.command.InitializeLoanServiceCommand;
 import com.mrtkrkrt.creditapp.loan.model.Installment;
 import com.mrtkrkrt.creditapp.loan.model.Loan;
+import com.mrtkrkrt.creditapp.loan.model.LoanElastic;
 import com.mrtkrkrt.creditapp.loan.model.enums.LoanStatus;
-import com.mrtkrkrt.creditapp.loan.repository.LoanRepository;
+import com.mrtkrkrt.creditapp.loan.service.kafka.publisher.LoanEventPublisher;
 import com.mrtkrkrt.creditapp.user.UserService;
+import com.mrtkrkrt.creditapp.user.model.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +22,8 @@ import java.util.List;
 public class LoanCommandService {
 
     private final UserService userService;
-    private final LoanRepository loanRepository;
     private final InstallmentCommandService installmentCommandService;
+    private final LoanEventPublisher loanEventPublisher;
 
     @Transactional
     public void takeOutLoan(InitializeLoanServiceCommand initializeLoanCommand) {
@@ -32,7 +34,22 @@ public class LoanCommandService {
                 .installmentCount(initializeLoanCommand.getInstallmentCount())
                 .build();
         createInstallments(initializeLoanCommand, loan);
-        userService.addLoan(initializeLoanCommand.getTckn(), loan);
+        // TODO user coupling from another module???
+        User user = userService.addLoan(initializeLoanCommand.getTckn(), loan);
+        syncElasticLoan(loan, user);
+        installmentCommandService.syncElasticInstallments(loan.getInstallments(), user);
+    }
+
+    private void syncElasticLoan(Loan loan, User user) {
+        LoanElastic loanElastic = LoanElastic.builder()
+                .id(user.getLoans().get(user.getLoans().size() - 1).getId())
+                .status(loan.getStatus())
+                .amount(loan.getAmount())
+                .interestRate(loan.getInterestRate())
+                .installmentCount(loan.getInstallmentCount())
+                .userId(loan.getUser().getId())
+                .build();
+        loanEventPublisher.publish("loan-elastic-sync", loanElastic);
     }
 
     private void createInstallments(InitializeLoanServiceCommand initializeLoanCommand, Loan loan) {
