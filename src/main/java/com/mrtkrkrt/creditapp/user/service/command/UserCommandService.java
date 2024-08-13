@@ -55,7 +55,6 @@ public class UserCommandService {
     public void addLoan(String tckn, Loan loan) {
         User user = findUserByTckn(tckn);
         user.addLoan(loan);
-        loan.setUser(user);
         userRepository.save(user);
     }
 }

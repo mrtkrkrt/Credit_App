@@ -18,14 +18,13 @@ public class InstallmentCommandService {
 
     public InitializeInstallmentResponse createInstallments(InitializeInstallmentCommand initializeInstallmentCommand) {
         log.info("InstallmentCommandService -> createInstallments is started, initializeInstallmentCommand: {}", initializeInstallmentCommand);
-        Installment installment = Installment.builder()
-                .amount(calculateInstallmentAmount(initializeInstallmentCommand))
-                .status(InstallmentStatus.UNPAID)
-                .build();
 
         ArrayList<Installment> installments = new ArrayList<>();
         for (int i = 0; i < initializeInstallmentCommand.getInstallmentCount(); i++) {
-            installments.add(installment);
+            installments.add(Installment.builder()
+                    .amount(calculateInstallmentAmount(initializeInstallmentCommand))
+                    .status(InstallmentStatus.UNPAID)
+                    .build());
         }
 
         return InitializeInstallmentResponse.builder()

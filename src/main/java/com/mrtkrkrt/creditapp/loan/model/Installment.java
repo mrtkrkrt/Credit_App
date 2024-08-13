@@ -21,7 +21,7 @@ public class Installment extends BaseEntity {
     private Long id;
     private BigDecimal amount;
     private InstallmentStatus status;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "loan_id")
     private Loan loan;
 

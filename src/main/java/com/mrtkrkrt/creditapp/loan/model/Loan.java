@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,13 +26,20 @@ public class Loan extends BaseEntity {
     private BigDecimal amount;
     private BigDecimal interestRate;
     private int installmentCount;
-    @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Installment> installments;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     public void addInstallment(Installment installment) {
-        installments.add(installment);
+        this.getInstallments().add(installment);
+        installment.setLoan(this);
+    }
+
+    public List<Installment> getInstallments() {
+        if (this.installments == null)
+            this.installments = new ArrayList<>();
+        return this.installments;
     }
 }

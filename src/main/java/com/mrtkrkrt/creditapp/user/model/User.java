@@ -26,7 +26,7 @@ public class User extends BaseEntity {
     private String surname;
     private String password;
     private String tckn;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Loan> loans;
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -35,5 +35,6 @@ public class User extends BaseEntity {
 
     public void addLoan(Loan loan) {
         this.loans.add(loan);
+        loan.setUser(this);
     }
 }
