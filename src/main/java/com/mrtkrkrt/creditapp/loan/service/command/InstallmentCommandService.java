@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,12 +37,18 @@ public class InstallmentCommandService {
             installments.add(Installment.builder()
                     .amount(calculateInstallmentAmount(initializeInstallmentCommand))
                     .status(InstallmentStatus.UNPAID)
+                    .dueDate(getDueDate(i))
                     .build());
         }
 
         return InitializeInstallmentResponse.builder()
                 .installments(installments)
                 .build();
+    }
+
+    private static LocalDateTime getDueDate(int i) {
+        LocalDateTime dueDate = LocalDateTime.now().plusMonths(i + 1);
+        return dueDate.getDayOfWeek().equals("SATURDAY") ? dueDate.plusDays(2) : dueDate.getDayOfWeek().equals("SUNDAY") ? dueDate.plusDays(1) : dueDate;
     }
 
     private BigDecimal calculateInstallmentAmount(InitializeInstallmentCommand initializeInstallmentCommand) {
@@ -57,6 +64,7 @@ public class InstallmentCommandService {
                         .amount(installments.get(i).getAmount())
                         .status(installments.get(i).getStatus())
                         .loanId(user.getLoans().get(user.getLoans().size() - 1).getId())
+                        .dueDate(installments.get(i).getDueDate())
                         .build());
             } catch (Exception e) {
                 log.error("InstallmentCommandService -> syncElasticInstallments is failed, installment: {}", installments.get(i), e);

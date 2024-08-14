@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "installments")
@@ -21,6 +22,7 @@ public class Installment extends BaseEntity {
     private Long id;
     private BigDecimal amount;
     private InstallmentStatus status;
+    private LocalDateTime dueDate;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "loan_id")
     private Loan loan;

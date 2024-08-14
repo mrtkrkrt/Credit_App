@@ -4,8 +4,11 @@ import com.mrtkrkrt.creditapp.loan.model.enums.InstallmentStatus;
 import jakarta.persistence.Id;
 import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Document(indexName = "installment")
 @Getter
@@ -19,4 +22,6 @@ public class InstallmentElastic {
     private BigDecimal amount;
     private InstallmentStatus status;
     private Long loanId;
+    @Field(type = FieldType.Date, pattern = "uuuu-MM-dd'T'HH:mm:ss.SSS", format = {})
+    private LocalDateTime dueDate;
 }
