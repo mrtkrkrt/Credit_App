@@ -1,11 +1,15 @@
 package com.mrtkrkrt.creditapp.loan.api.command;
 
+import static com.mrtkrkrt.creditapp.common.constants.CommonHeaderConstants.X_USER_TCKN;
+
 import com.mrtkrkrt.creditapp.loan.dto.command.TakeOutInstallmentCommand;
 import com.mrtkrkrt.creditapp.loan.dto.command.TakeOutInstallmentServiceCommand;
 import com.mrtkrkrt.creditapp.loan.service.command.InstallmentCommandService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.MDC;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +23,11 @@ public class InstallmentCommandController {
 
     @PostMapping("/take-out")
     public ResponseEntity<Void> takeOutInstallment(
-            @RequestHeader("x-user-tckn") String tckn,
-            @RequestBody @Valid TakeOutInstallmentCommand takeOutInstallmentCommand) {
+        @RequestBody @Valid TakeOutInstallmentCommand takeOutInstallmentCommand) {
         installmentCommandService.takeOutInstallment(TakeOutInstallmentServiceCommand.builder()
                 .amount(takeOutInstallmentCommand.getAmount())
                 .loanId(takeOutInstallmentCommand.getLoanId())
-                .tckn(tckn)
+                .tckn(MDC.get(X_USER_TCKN))
                 .build());
         return ResponseEntity.ok().build();
     }
