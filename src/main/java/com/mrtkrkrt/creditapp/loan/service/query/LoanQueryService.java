@@ -6,6 +6,7 @@ import com.mrtkrkrt.creditapp.loan.dto.query.RetrieveInstallmentResponse;
 import com.mrtkrkrt.creditapp.loan.dto.command.RetrieveInstallmentsServiceCommand;
 import com.mrtkrkrt.creditapp.loan.dto.query.RetrieveLoanResponse;
 import com.mrtkrkrt.creditapp.loan.dto.command.RetrieveLoanServiceCommand;
+import com.mrtkrkrt.creditapp.loan.model.InstallmentElastic;
 import com.mrtkrkrt.creditapp.loan.model.LoanElastic;
 import com.mrtkrkrt.creditapp.loan.repository.LoanElasticRepository;
 import com.mrtkrkrt.creditapp.user.UserService;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class LoanQueryService {
                     .installments(retrieveInstallmentResponse.getInstallments())
                     .status(loanElastic.getStatus())
                     .installmentCount(retrieveInstallmentResponse.getInstallments().size())
-                    .totalAmount(loanElastic.getAmount())
+                    .totalAmount(retrieveInstallmentResponse.getInstallments().stream().map(InstallmentElastic::getAmount).reduce(BigDecimal::add).get())
                     .build());
         }
     }

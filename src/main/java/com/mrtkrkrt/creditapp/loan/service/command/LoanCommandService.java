@@ -32,7 +32,7 @@ public class LoanCommandService {
     public void takeOutLoan(InitializeLoanServiceCommand initializeLoanCommand) {
         Loan loan = Loan.builder()
                 .status(LoanStatus.UNPAID)
-                .amount(initializeLoanCommand.getAmount())
+                .initialAmount(initializeLoanCommand.getAmount())
                 .interestRate(initializeLoanCommand.getInterestRate())
                 .installmentCount(initializeLoanCommand.getInstallmentCount())
                 .build();
@@ -47,7 +47,7 @@ public class LoanCommandService {
         LoanElastic loanElastic = LoanElastic.builder()
                 .id(user.getLoans().get(user.getLoans().size() - 1).getId())
                 .status(loan.getStatus())
-                .amount(loan.getAmount())
+                .amount(loan.getInitialAmount())
                 .interestRate(loan.getInterestRate())
                 .installmentCount(loan.getInstallmentCount())
                 .userId(loan.getUser().getId())
@@ -73,11 +73,15 @@ public class LoanCommandService {
             loanEventPublisher.publish("loan-elastic-sync", LoanElastic.builder()
                     .id(loan.getId())
                     .status(loan.getStatus())
-                    .amount(loan.getAmount())
+                    .amount(loan.getInitialAmount())
                     .interestRate(loan.getInterestRate())
                     .installmentCount(loan.getInstallmentCount())
                     .userId(loan.getUser().getId())
                     .build());
         }
+    }
+
+    public void updateLoan(Loan loan) {
+        loanRepository.save(loan);
     }
 }

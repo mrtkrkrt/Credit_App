@@ -23,6 +23,7 @@ public class Installment extends BaseEntity {
     private BigDecimal amount;
     private InstallmentStatus status;
     private LocalDateTime dueDate;
+    private int dueDay;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "loan_id")
     private Loan loan;

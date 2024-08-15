@@ -23,7 +23,7 @@ public class Loan extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LoanStatus status;
-    private BigDecimal amount;
+    private BigDecimal initialAmount;
     private BigDecimal interestRate;
     private int installmentCount;
     @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

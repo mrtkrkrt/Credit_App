@@ -22,6 +22,8 @@ public class InstallmentElastic {
     private BigDecimal amount;
     private InstallmentStatus status;
     private Long loanId;
+    private int dueDay;
+    private BigDecimal interestRate;
     @Field(type = FieldType.Date, pattern = "uuuu-MM-dd'T'HH:mm:ss.SSS", format = {})
     private LocalDateTime dueDate;
 }
