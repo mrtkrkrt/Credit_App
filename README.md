@@ -27,6 +27,7 @@ This project is a credit management system that allows users to create and manag
 - make health: Builds the health-check Docker image
 
 ## System Architecture
+![image](https://github.com/user-attachments/assets/5057102f-2e56-4b4d-9d80-ec0aff41fdb4)
 
 ## Additional Features (Optional)
 
