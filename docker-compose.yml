@@ -8,7 +8,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
-      - "8084:8084"
     volumes:
       - $HOME/app:/var/app
     depends_on:
@@ -16,23 +15,23 @@ services:
       - elasticsearch
       - mysql
     environment:
-      - spring.datasource.url=jdbc:mysql://localhost:3306/creditapp?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+      - spring.datasource.url=jdbc:mysql://mysql:3306/creditapp?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
       - spring.datasource.username=root
       - spring.datasource.password=root
       - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
       - spring.jpa.hibernate.ddl-auto=update
       - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
       - spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
-      - spring.kafka.bootstrap-servers=localhost:9092
+      - spring.kafka.bootstrap-servers=broker:9092
       - kafka.group.id=group-id
       - kafka.user.topic=user-elastic-sync
-      - spring.data.elasticsearch.cluster-nodes=localhost:9200
-      - elasticsearch.url=localhost:9200
+      - spring.data.elasticsearch.cluster-nodes=elastic:9200
+      - elasticsearch.url=broker:9200
       - spring.main.allow-bean-definition-overriding=true
       - spring.data.elasticsearch.repositories.enabled=true
       - jwt.expiration.time=60000
       - jwt.secret.key=16f8c0ef4a5d391b26034086c628469d3f9f497f08163ab9b40137092f2909ef
-      - spring.data.redis.host=localhost
+      - spring.data.redis.host=redis
       - spring.data.redis.port=6379
       - spring.data.redis.password=password
 
