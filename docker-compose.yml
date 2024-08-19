@@ -7,7 +7,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "8080:8080"
     volumes:
       - $HOME/app:/var/app
     depends_on:
@@ -22,11 +22,11 @@ services:
       - spring.jpa.hibernate.ddl-auto=update
       - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
       - spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
-      - spring.kafka.bootstrap-servers=broker:9092
+      - spring.kafka.bootstrap-servers=broker:29092
       - kafka.group.id=group-id
       - kafka.user.topic=user-elastic-sync
       - spring.data.elasticsearch.cluster-nodes=elastic:9200
-      - elasticsearch.url=broker:9200
+      - elasticsearch.url=elasticsearch:9200
       - spring.main.allow-bean-definition-overriding=true
       - spring.data.elasticsearch.repositories.enabled=true
       - jwt.expiration.time=60000
@@ -37,14 +37,13 @@ services:
 
     networks:
       - my-network
+    restart: always
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
-    container_name: zookeeper
+    container_name: my-zookeeper
     ports:
       - "2181:2181"
-      - "2888:2888"
-      - "3888:3888"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -62,7 +61,7 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://broker:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_INTERNAL://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
@@ -85,6 +84,7 @@ services:
 
   cache:
     image: redis:6.2-alpine
+    container_name: redis
     restart: always
     ports:
       - '6379:6379'

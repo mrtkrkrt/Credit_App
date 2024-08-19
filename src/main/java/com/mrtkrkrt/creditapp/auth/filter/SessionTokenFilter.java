@@ -7,6 +7,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mrtkrkrt.creditapp.auth.dto.command.GenerateTokenCommand;
+import com.mrtkrkrt.creditapp.auth.filter.constants.PathConstants;
 import com.mrtkrkrt.creditapp.auth.filter.service.redis.AuthRedisService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -42,7 +43,7 @@ public class SessionTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
         // public url'leri bir map in içinden al
-        if (request.getRequestURI().contains("/register") || request.getRequestURI().contains("/login")) {
+        if (PathConstants.isTokenRequired(request.getRequestURI())) {
             filterChain.doFilter(request, response);
             return;
         }
