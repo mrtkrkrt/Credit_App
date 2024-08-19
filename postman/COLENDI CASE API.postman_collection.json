@@ -1,0 +1,657 @@
+{
+	"info": {
+		"_postman_id": "51ffca9d-3771-425f-a8be-42b6a5c98343",
+		"name": "COLENDI CASE API",
+		"description": "CASE COLENDI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16820650"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "v1",
+					"item": [
+						{
+							"name": "user",
+							"item": [
+								{
+									"name": "register",
+									"item": [
+										{
+											"name": "create User",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"surname\": \"<string>\",\n  \"tckn\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/user/register",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"register"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"surname\": \"<string>\",\n  \"tckn\": \"<string>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/user/register",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"user",
+																"register"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "get User",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/user/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"user",
+												""
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/user/",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														""
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"user\": {\n    \"id\": \"<long>\",\n    \"name\": \"<string>\",\n    \"surname\": \"<string>\",\n    \"password\": \"<string>\",\n    \"tckn\": \"<string>\"\n  }\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "login",
+							"item": [
+								{
+									"name": "login",
+									"item": [
+										{
+											"name": "login",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"password\": \"<string>\",\n  \"tckn\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/login/login",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"login",
+														"login"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"password\": \"<string>\",\n  \"tckn\": \"<string>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/login/login",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"login",
+																"login"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"token\": \"<string>\"\n}"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "loan",
+							"item": [
+								{
+									"name": "installments",
+									"item": [
+										{
+											"name": "retrieve All Installments",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"description": "(Required) ",
+														"key": "x-loan-id",
+														"value": "<string>"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/loan/installments",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"loan",
+														"installments"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"description": "(Required) ",
+																"key": "x-loan-id",
+																"value": "<string>"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/loan/installments",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"loan",
+																"installments"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"installments\": [\n    {\n      \"id\": \"<long>\",\n      \"amount\": \"<number>\",\n      \"status\": \"PAID\",\n      \"loanId\": \"<long>\",\n      \"dueDay\": \"<integer>\",\n      \"interestRate\": \"<number>\",\n      \"dueDate\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"amount\": \"<number>\",\n      \"status\": \"UNPAID\",\n      \"loanId\": \"<long>\",\n      \"dueDay\": \"<integer>\",\n      \"interestRate\": \"<number>\",\n      \"dueDate\": \"<dateTime>\"\n    }\n  ]\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "filter",
+									"item": [
+										{
+											"name": "retrieve All Loans",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/loan/filter?status=UNPAID",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"loan",
+														"filter"
+													],
+													"query": [
+														{
+															"key": "status",
+															"value": "UNPAID",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/loan/filter?status=UNPAID",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"loan",
+																"filter"
+															],
+															"query": [
+																{
+																	"key": "status",
+																	"value": "UNPAID",
+																	"description": "(Required) "
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"loans\": [\n    {\n      \"creditId\": \"<long>\",\n      \"installments\": [\n        {\n          \"id\": \"<long>\",\n          \"amount\": \"<number>\",\n          \"status\": \"UNPAID\",\n          \"loanId\": \"<long>\",\n          \"dueDay\": \"<integer>\",\n          \"interestRate\": \"<number>\",\n          \"dueDate\": \"<dateTime>\"\n        },\n        {\n          \"id\": \"<long>\",\n          \"amount\": \"<number>\",\n          \"status\": \"PAID\",\n          \"loanId\": \"<long>\",\n          \"dueDay\": \"<integer>\",\n          \"interestRate\": \"<number>\",\n          \"dueDate\": \"<dateTime>\"\n        }\n      ],\n      \"status\": \"UNPAID\",\n      \"installmentCount\": \"<integer>\",\n      \"totalAmount\": \"<number>\"\n    },\n    {\n      \"creditId\": \"<long>\",\n      \"installments\": [\n        {\n          \"id\": \"<long>\",\n          \"amount\": \"<number>\",\n          \"status\": \"UNPAID\",\n          \"loanId\": \"<long>\",\n          \"dueDay\": \"<integer>\",\n          \"interestRate\": \"<number>\",\n          \"dueDate\": \"<dateTime>\"\n        },\n        {\n          \"id\": \"<long>\",\n          \"amount\": \"<number>\",\n          \"status\": \"PAID\",\n          \"loanId\": \"<long>\",\n          \"dueDay\": \"<integer>\",\n          \"interestRate\": \"<number>\",\n          \"dueDate\": \"<dateTime>\"\n        }\n      ],\n      \"status\": \"PAID\",\n      \"installmentCount\": \"<integer>\",\n      \"totalAmount\": \"<number>\"\n    }\n  ]\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "retrieve All Loans 1",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/loan/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"loan",
+												""
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/loan/",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"loan",
+														""
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"loans\": [\n    {\n      \"creditId\": \"<long>\",\n      \"installments\": [\n        {\n          \"id\": \"<long>\",\n          \"amount\": \"<number>\",\n          \"status\": \"UNPAID\",\n          \"loanId\": \"<long>\",\n          \"dueDay\": \"<integer>\",\n          \"interestRate\": \"<number>\",\n          \"dueDate\": \"<dateTime>\"\n        },\n        {\n          \"id\": \"<long>\",\n          \"amount\": \"<number>\",\n          \"status\": \"PAID\",\n          \"loanId\": \"<long>\",\n          \"dueDay\": \"<integer>\",\n          \"interestRate\": \"<number>\",\n          \"dueDate\": \"<dateTime>\"\n        }\n      ],\n      \"status\": \"UNPAID\",\n      \"installmentCount\": \"<integer>\",\n      \"totalAmount\": \"<number>\"\n    },\n    {\n      \"creditId\": \"<long>\",\n      \"installments\": [\n        {\n          \"id\": \"<long>\",\n          \"amount\": \"<number>\",\n          \"status\": \"UNPAID\",\n          \"loanId\": \"<long>\",\n          \"dueDay\": \"<integer>\",\n          \"interestRate\": \"<number>\",\n          \"dueDate\": \"<dateTime>\"\n        },\n        {\n          \"id\": \"<long>\",\n          \"amount\": \"<number>\",\n          \"status\": \"PAID\",\n          \"loanId\": \"<long>\",\n          \"dueDay\": \"<integer>\",\n          \"interestRate\": \"<number>\",\n          \"dueDate\": \"<dateTime>\"\n        }\n      ],\n      \"status\": \"PAID\",\n      \"installmentCount\": \"<integer>\",\n      \"totalAmount\": \"<number>\"\n    }\n  ]\n}"
+										}
+									]
+								},
+								{
+									"name": "take Out Loan",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"amount\": \"<number>\",\n  \"installmentCount\": \"<integer>\",\n  \"interestRate\": \"<number>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/loan/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"loan",
+												""
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"amount\": \"<number>\",\n  \"installmentCount\": \"<integer>\",\n  \"interestRate\": \"<number>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/loan/",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"loan",
+														""
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "installment",
+							"item": [
+								{
+									"name": "take-out",
+									"item": [
+										{
+											"name": "take Out Installment",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"loanId\": \"<long>\",\n  \"amount\": \"<number>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/installment/take-out",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"installment",
+														"take-out"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"loanId\": \"<long>\",\n  \"amount\": \"<number>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/installment/take-out",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"installment",
+																"take-out"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}

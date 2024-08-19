@@ -39,4 +39,4 @@ In addition to the core features mentioned above, you can consider adding the fo
 
 - Rate Limiter: Implement a rate limiter to prevent abuse and protect the application from excessive requests. This feature can help control the number of requests made by a user within a specific time frame, ensuring fair usage and preventing misuse or system overload.
 
-- Microservice Architecture: 
+- Microservice Architecture: Consider refactoring the application into microservices to improve scalability, maintainability, and flexibility. By breaking down the application into smaller, independent services, you can achieve better separation of concerns and enable each service to be developed, deployed, and scaled independently.
